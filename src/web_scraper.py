@@ -4,6 +4,8 @@ from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from src.config import Config
 
@@ -42,6 +44,16 @@ class WebScraper:
 
     def start_connection(self, url):
         self.driver.get(url)
+
+        try:
+            # Wait until the cookie banner button is clickable
+            accept_btn = WebDriverWait(self.driver, 10).until(
+                EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Agree') or contains(., 'Aceptar')]"))
+            )
+            accept_btn.click()
+            print("Cookies accepted!")
+        except Exception as e:
+            print("No cookie banner found:", e)
 
     def click_element(self, element):
         try:
