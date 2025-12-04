@@ -1,6 +1,8 @@
 # ivoox-scraping
 Scrapes the [ivoox](https://www.ivoox.com/) website to download the podcast episode provided.
 
+[Check below for an alternative downloading method that does not require scraping]
+
 ## Prerequisites
 
 - [Python 3.10.x](https://www.python.org/downloads/)
@@ -49,4 +51,15 @@ To run it you can use the following command:
 
 ```bash
 docker run -it --rm -v $(pwd)/config.ini:/app/config.ini -v <path_here>/downloaded_podcast_audio:/app/downloaded_podcast_audio ivoox-scraping -p <podcast_key> -latest
+```
+
+
+## Altenative rss-based method
+
+The simple `rss-download.py` script uses a simpler method which consists on downloading and parsing the rss feed to retrive the latest mp3 urls, and then downloads them.
+
+Edit `config.yaml`and run using:
+
+```bash
+uv run rss-download.py
 ```
